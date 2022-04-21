@@ -1,7 +1,7 @@
 import { Switch, Route } from "react-router-dom";
 import { Home } from "../pages/Home";
 import { AnimatePresence } from "framer-motion";
-import { Signup } from "../components/Button/Signup";
+import  {Signup}  from "../components/Signup/index";
 
 function Routes(){
 
