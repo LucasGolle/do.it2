@@ -14,8 +14,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import api from "../../services/api";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { Redirect } from "react-router-dom";
 
-export const Signup = () => {
+export const Signup = ({authenticated}) => {
   const schema = yup.object().shape({
     name: yup.string().required("Campo obrigatório!"),
     email: yup.string().email("Email inválido").required("Campo obrigatório!"),
@@ -49,6 +50,10 @@ export const Signup = () => {
     .catch((err) => toast.error("Erro ao criar a conta, verifique todos os campos"));
 
   };
+
+  if (authenticated){
+    return <Redirect to="/dashboard"/>;
+  }
 
   return (
     <Container>

@@ -14,8 +14,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import api from "../../services/api";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { Redirect } from "react-router-dom";
 
-export const Login = () => {
+export const Login = ({authenticated, setAuthenticated}) => {
   const schema = yup.object().shape({
     email: yup.string().email("Email inválido").required("Campo obrigatório!"),
     password: yup
@@ -34,16 +35,28 @@ export const Login = () => {
 
   const history = useHistory()
 
-  const onSubmitFunction = ({ name, email, password }) => {
-    const user = { name, email, password }
+  const onSubmitFunction = (data) => {
+    
+    api.post("/user/login", data).then(response =>{
 
-    api.post("/user/register", user).then((_) => {
-      toast.success("Conta criada com sucesso");
-      return history.push('/login');
-    })
-    .catch((err) => toast.error("Erro ao criar a conta, verifique todos os campos"));
+        const { token } = response.data;
+
+        toast.success("Login feito com sucesso")
+
+        localStorage.setItem("@Doit:token", JSON.stringify(token))
+
+        setAuthenticated(true)
+
+        return history.push("/dashboard")
+
+    }).catch(err => toast.error("Confira todos os campos. Ou cadastre-se"))
 
   };
+
+
+  if (authenticated){
+    return <Redirect to="/dashboard"/>;
+  }
 
   return (
     <Container>

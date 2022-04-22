@@ -1,13 +1,18 @@
 import { motion } from "framer-motion";
+import { Redirect } from "react-router-dom";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { Container, Content, Button } from "./styles";
 
-export const Home = () => {
+export const Home = ({authenticated}) => {
   const history = useHistory();
 
   const handleNavigation = (path) => {
     return history.push(path);
   };
+
+  if (authenticated){
+    return <Redirect to="/dashboard"/>;
+  }
 
   return (
     <motion.div
