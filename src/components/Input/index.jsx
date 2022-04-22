@@ -1,13 +1,13 @@
 import {Container, InputContainer} from "./styles"
 
-function Input({lable, icon: Icon, ...rest}){
+function Input({lable, icon: Icon, register, name, error, ...rest}){
   return (
       <Container>
-          <div>{lable}</div>
+          <div>{lable} {!!error && <span> - {error}</span>}</div>
 
-          <InputContainer>
+          <InputContainer isErrored={!!error}>
             {Icon && <Icon size={20} />}
-            <input {...rest}/>
+            <input {...register(name)} {...rest}/>
           </InputContainer>
       </Container>
   )

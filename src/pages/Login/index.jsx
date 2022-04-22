@@ -6,8 +6,8 @@ import {
   Container,
   Content,
 } from "./styles";
-import Input from "../Input";
-import { FiUser, FiMail, FiLock } from "react-icons/fi";
+import Input from "../../components/Input";
+import { FiMail, FiLock } from "react-icons/fi";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -15,17 +15,12 @@ import api from "../../services/api";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
-export const Signup = () => {
+export const Login = () => {
   const schema = yup.object().shape({
-    name: yup.string().required("Campo obrigatório!"),
     email: yup.string().email("Email inválido").required("Campo obrigatório!"),
     password: yup
       .string()
       .min(8, "Mínimo 8 dígitos")
-      .required("Campo obrigatório!"),
-    passwordConfirm: yup
-      .string()
-      .oneOf([yup.ref("password")], "Senhas diferentes")
       .required("Campo obrigatório!"),
   });
 
@@ -52,19 +47,10 @@ export const Signup = () => {
 
   return (
     <Container>
-      <Background />
       <Content>
         <AnimationContainer>
           <form onSubmit={handleSubmit(onSubmitFunction)}>
-            <h1>Cadastro</h1>
-            <Input
-              register={register}
-              name="name"
-              icon={FiUser}
-              lable="Nome"
-              placeholder="Seu nome"
-              error={errors.name?.message}
-            />
+            <h1>Login</h1>
             <Input
               register={register}
               name="email"
@@ -82,22 +68,14 @@ export const Signup = () => {
               type="password"
               error={errors.password?.message}
             />
-            <Input
-              register={register}
-              name="passwordConfirm"
-              icon={FiLock}
-              lable="Confirmação da senha"
-              type="password"
-              placeholder="Confirmação de senha"
-              error={errors.passwordConfirm?.message}
-            />
             <Button type="submit">Enviar</Button>
             <p>
-              Já tem uma conta? Faça seu <Link to="/login">login</Link>{" "}
+              Não tem uma conta? Faça seu <Link to="/signup">cadastro</Link>{" "}
             </p>
           </form>
         </AnimationContainer>
       </Content>
+      <Background />
     </Container>
   );
 };

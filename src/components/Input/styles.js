@@ -1,7 +1,13 @@
 import styled from "styled-components";
+import { css } from "styled-components";
 
 export const Container = styled.div`
   text-align: left;
+  div{
+    span{
+      color: #c53030;
+    }
+  }
 `;
 
 export const InputContainer = styled.div`
@@ -14,6 +20,15 @@ export const InputContainer = styled.div`
   display: flex;
   transition: 0.4s;
 
+  ${(props) =>
+    props.isErrored &&
+    css`
+      border-color: #c53030;
+      svg{
+        color: #c53030;
+      }
+    `}
+
   input {
     background: transparent;
     align-items: center;
@@ -23,6 +38,8 @@ export const InputContainer = styled.div`
     &::placeholder {
       color: #666360;
     }
-}
-
+  }
+  svg {
+    margin-right: 20px;
+  }
 `;
