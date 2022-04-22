@@ -1,6 +1,6 @@
 import {Container, InputContainer} from "./styles"
 
-function Input({lable, icon: Icon, register, name, error, ...rest}){
+function Input({lable, icon: Icon, register, name, error = "", ...rest}){
   return (
       <Container>
           <div>{lable} {!!error && <span> - {error}</span>}</div>
